@@ -10,7 +10,8 @@ pub mod task;
 mod task_example;
 mod writer;
 
-use alloc::{borrow::ToOwned, sync::Arc};
+
+use alloc::{borrow::ToOwned, string::String, sync::Arc};
 //use bootloader_api::config::Mapping;
 use writer::FrameBufferWriter;
 use x86_64::instructions::hlt;
@@ -151,13 +152,14 @@ fn my_entry_point(boot_info: &'static mut bootloader_api::BootInfo) -> ! {
 
     //For premptive multitasking, we use interrupts
     interrupts::init();
-
+    let input = input_str!("Hi from Chinenye");
+    println!("\nString entered is {}",input);
     //Let's experience getting string from keyboard and saving into a variable for use
-    print!("Enter string: ");
-    let input = match input_str() {
-        Some(value) => value,
-        None => "".to_owned()
-    };
+    // print!("Enter string: ");
+    // let input = match input_str() {
+    //     Some(value) => value,
+    //     None => "".to_owned()
+    // }; 
     println!("\nString entered is '{}'", input);
 
 
